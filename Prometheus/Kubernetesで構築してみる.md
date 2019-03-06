@@ -1,12 +1,12 @@
 # PrometheusをKubernetesで構築してみる
 
 ## 参考
-[Prometheus+GrafanaでKubernetesクラスターを監視する ~Binaryファイルから起動+yamlファイルから構築~ - Qiita](https://qiita.com/FY0323/items/72616d6e280ec7f2fdaf)
+[Prometheus+GrafanaでKubernetesクラスターを監視する Binaryファイルから起動+yamlファイルから構築 - Qiita](https://qiita.com/FY0323/items/72616d6e280ec7f2fdaf)
 
 ## Prometheus　
 ### yaml
-
-``` yaml:clusterRole.yaml
+#### clusterRole.yaml
+``` yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
 metadata:
@@ -42,7 +42,8 @@ subjects:
   namespace: monitoring
 ```
 
-``` yaml:prometheus-configmap.yaml
+#### prometheus-configmap.yaml
+``` yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -83,7 +84,8 @@ data:
         - targets: ['localhost:9100','k8s-node-1:9100']
 ```
 
-``` yaml:prometheus.yaml
+#### prometheus.yaml
+``` yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -158,7 +160,8 @@ replicaset.apps/prometheus-deployment-7f6494bf9b   1         1         1       4
 
 ## Grafana
 ### yaml
-``` yaml:grafana.yaml
+#### grafana.yaml
+``` yaml
 apiVersion: v1
 kind: Service
 metadata:
