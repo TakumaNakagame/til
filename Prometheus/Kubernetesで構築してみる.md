@@ -1,11 +1,15 @@
 # PrometheusをKubernetesで構築してみる
 
 ## 参考
+
 [Prometheus+GrafanaでKubernetesクラスターを監視する Binaryファイルから起動+yamlファイルから構築 - Qiita](https://qiita.com/FY0323/items/72616d6e280ec7f2fdaf)
 
-## Prometheus　
+## Prometheus
+
 ### yaml
+
 #### clusterRole.yaml
+
 ``` yaml
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -43,6 +47,7 @@ subjects:
 ```
 
 #### prometheus-configmap.yaml
+
 ``` yaml
 apiVersion: v1
 kind: ConfigMap
@@ -85,6 +90,7 @@ data:
 ```
 
 #### prometheus.yaml
+
 ``` yaml
 apiVersion: v1
 kind: Service
@@ -123,7 +129,8 @@ spec:
 ```
 
 ### デプロイ
-```
+
+```plan
 [root@master prometheus]# kubectl create namespace monitoring
 namespace/monitoring created
 [root@master prometheus]# kubectl apply -f clusterRole.yaml
@@ -139,7 +146,8 @@ deployment.extensions/prometheus-deployment created
 ```
 
 ### 確認
-```
+
+```plan
 [root@master prometheus]# kubectl get all -n monitoring
 NAME                                         READY   STATUS    RESTARTS   AGE
 pod/prometheus-deployment-7f6494bf9b-sx9dt   1/1     Running   0          45s
@@ -159,8 +167,11 @@ replicaset.apps/prometheus-deployment-7f6494bf9b   1         1         1       4
 ```
 
 ## Grafana
+
 ### yaml
+
 #### grafana.yaml
+
 ``` yaml
 apiVersion: v1
 kind: Service
@@ -199,14 +210,16 @@ spec:
 ```
 
 ### デプロイ
-```
+
+```plan
 [root@master prometheus]# kubectl apply -f grafana.yaml
 service/grafana-service created
 deployment.extensions/grafana-deployment created
 ```
 
 ### 確認
-```
+
+```plan
 [root@master prometheus]# kubectl get all -n monitoring
 NAME                                         READY   STATUS    RESTARTS   AGE
 pod/grafana-deployment-79d7cbf6d4-rxvkr      1/1     Running   0          12s

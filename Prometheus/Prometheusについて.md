@@ -1,6 +1,7 @@
 # Prometheusについて
 
 ## Prometheusとは？
+
 - SoundCloudにて開発/運用されていたオープンソースな監視ツール
 - Cloud Native Computing Foundationに2番目にホストされたプロジェクトでもある
 - Key/Value型のメトリックと時系列データを持つ多次元データモデル
@@ -8,16 +9,17 @@
 - メトリックスはHTTPを用いたプルモデルにて収集される
 
 ## Prometheusを構成するもの
+
 - Prometheus Server
 - Client Library
 - Push Gateway
 - Exporters
 - Alert Manager
 
-
 ### Prometheusのアーキテクチャ
 
 Prometheusは次の機能だけを持つ
+
 - メトリック収集
 - クエリ回答
 - アラート
