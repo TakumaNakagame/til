@@ -71,6 +71,8 @@ INFO[0000] Listening on :9100                            source="node_exporter.g
 
 初期状態のPrometheusは、バイナリ直下の`prometheus.yml`から設定内容を見に行きます。なので、この`prometheus.yml`をかいてみます。
 
+なお、読み込み先のファイルを変更したい場合は、起動時に`--config.file=pm.yaml`のように指定する。
+
 ```yaml:prometheus.yml
 scrape_configs:                                                                                           │level=info ts=2019-03-11T06:36:12.178568084Z caller=main.go:719 msg="Loading configuration file" filename=
   - job_name: 'prometheus_server'                                                                         │prometheus.yml
