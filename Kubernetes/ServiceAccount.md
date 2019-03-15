@@ -1,5 +1,69 @@
 # Service Account
 
+## RBACとは
+
+Role-Based Access Controlの略で、役割でアクセス制限をする方法。
+
+[Using RBAC Authorization - Kubernetes](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
+
+### RBACのリソース
+
+主に次のようなリソースが存在する。
+
+- Role
+- ClusterRole
+- RoleBinding
+- ClusterRoleBinding
+
+`Role`系はどのリソースに対してどんな操作を許可するのかを定義する。
+
+`Binding`系はRoleとServiceAccoutの紐付けを定義する。
+
+### リソース/操作
+
+#### リソース
+
+Kubernetes上のリソースを指す
+
+- pod
+- deployment
+- service
+- secret
+- etc...
+
+#### 操作
+
+Kubernetes上のリソースに対して行える操作
+
+- get
+- create 
+- update
+- delete 
+- list
+- etc...
+
+### Role/RoleBinding と ClusterRole/ClusterRoleBinding の違い
+
+Role/RoleBindingは特定のNamespaceに所属しているが、ClusterRole/ClusterRoleBindingはNamespaceに属さない。
+
+## ServiceAccountについて
+
+- 接続元のアプリケーションを識別するもの
+- Roleを紐付けることができる
+- Pod作成時に必ず紐付けられる
+  - Namespaceを作ると、`default`というServiceAccountが自動で作られる
+  - KubernetesClusterを作成したときに`default`というNamespaceが作られ、同時に`default`というServiceAccountも作られる
+
+### ServiceAccountの使用早見表
+
+| **アクセス制限対象**|**Role種類**|**Binding種類** |
+|:-----:|:-----:|:-----:|
+| Cluster-level resources (Nodes, PersistentVolumes, ...)|ClusterRole|ClusterRoleBinding |
+| Non-resource URLs (/api, /healthz, ...)|ClusterRole|ClusterRoleBinding |
+| いくつかのnamespace、もしくは全てのnamaespaceに存在するNamespaced resources|ClusterRole|ClusterRoleBinding |
+| 特定のnamaspaceに存在するNamespaced resources。(共通のRoleを使いたい場合)|ClusterRole|RoleBinding |
+| 特定のnamaspaceに存在するNamespaced resources。(namespaceごとにRoleを定義する場合)|Role|RoleBinding |
+
 ## 作成したService Accountのシークレット取得方法
 
 ServiceAccountの一覧を取得。今回は、`prometheus-k8s`が該当する。
@@ -116,3 +180,8 @@ $ curl -k https://192.168.0.1:6443/cluster-info
 ```
 
 デフォルトで、`system:anonymous`になるため、権限不足で参照できない。
+
+
+## LINK
+
+- [KubernetesのRBACについて - Qiita](https://qiita.com/sheepland/items/67a5bb9b19d8686f389d)

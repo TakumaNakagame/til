@@ -13,6 +13,8 @@
 
 ## Namespaceの作成
 
+Prometheusを構築するためのNamespaceを作成します。なんでもいい。
+
 ### namespace.yaml
 
 ``` yaml
@@ -24,6 +26,10 @@ metadata:
 ```
 
 ## ServiceAccountの作成
+
+Prometheusからkube-apiserverへREST APIでクラスタ情報を取得しにいくので、その時のServiceAccount。
+
+ServiceAccout `prometheus-k8s`に対して、ClusterRole `prometheus`を紐づけている。
 
 ### prom-rbac.yaml
 
@@ -69,6 +75,8 @@ metadata:
 ```
 
 ## Node_Exporterの構築
+
+Kubernetes Nodesの各種情報(CPU/RAMなど)を取得するために`node_exporter`を導入する。
 
 ### Node_expoter.yaml
 
@@ -121,8 +129,9 @@ spec:
   type: ClusterIP
 ```
 
-
 ## kube-state-metricの構築
+
+Kubernetes上のPodsやCluster情報を取得するために、`kube-state-metric`を導入する。
 
 ### kube-state-metric.yaml
 
@@ -165,6 +174,8 @@ spec:
 ```
 
 ## ConfigMapの適用
+
+Prometheusを展開するために、Configmapを展開する。また、各種監視設定の変更はこのファイルを変更していく。
 
 ### prom-configmap.yaml
 
